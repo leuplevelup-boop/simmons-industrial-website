@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
 const contactInfo = [
@@ -36,8 +35,6 @@ const contactInfo = [
 ];
 
 export default function Contact() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,13 +47,7 @@ export default function Contact() {
     <section id="contact" className="py-24 bg-[#0a0a0f]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          ref={ref}
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="gold-line w-12" />
             <span className="text-[#e8b923] text-sm font-semibold tracking-widest uppercase">
@@ -66,31 +57,22 @@ export default function Contact() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
-            Contact{" "}
-            <span className="text-gradient">Us</span>
+            Contact <span className="text-gradient">Us</span>
           </h2>
 
           <p className="text-lg text-[#9ca3af] max-w-2xl mx-auto">
             Ready to discuss your project? Reach out and our team will get back
             to you within 24 hours.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            {contactInfo.map((info, index) => (
-              <motion.div
+          <div className="space-y-6">
+            {contactInfo.map((info) => (
+              <div
                 key={info.label}
                 className="flex gap-4 p-4 bg-[#1a1a24] border border-[#2a2a35] rounded-xl hover:border-[#e8b923]/30 transition-colors"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.3 + index * 0.1 }}
               >
                 <div className="flex-shrink-0 w-12 h-12 bg-[#e8b923]/10 rounded-lg flex items-center justify-center">
                   <info.icon size={22} className="text-[#e8b923]" />
@@ -109,7 +91,7 @@ export default function Contact() {
                   )}
                   <div className="text-sm text-[#6b7280] mt-1">{info.subtext}</div>
                 </div>
-              </motion.div>
+              </div>
             ))}
 
             {/* Map placeholder */}
@@ -120,29 +102,21 @@ export default function Contact() {
                 <p className="text-sm text-[#4b5563]">CR0 4WQ</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
+          <div>
             {submitted ? (
-              <motion.div
-                className="bg-[#1a1a24] border border-[#2a2a35] rounded-2xl p-12 text-center"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-              >
+              <div className="bg-[#1a1a24] border border-[#2a2a35] rounded-2xl p-12 text-center">
                 <CheckCircle size={64} className="text-[#e8b923] mx-auto mb-6" />
                 <h3 className="text-2xl font-bold text-white mb-4">
                   Message Sent!
                 </h3>
                 <p className="text-[#9ca3af]">
-                  Thank you for contacting us. We'll get back to you within 24
+                  Thank you for contacting us. We&apos;ll get back to you within 24
                   hours.
                 </p>
-              </motion.div>
+              </div>
             ) : (
               <form
                 onSubmit={handleSubmit}
@@ -157,7 +131,7 @@ export default function Contact() {
                       type="text"
                       required
                       placeholder="John Smith"
-                      className="w-full"
+                      className="input-field"
                     />
                   </div>
                   <div>
@@ -168,7 +142,7 @@ export default function Contact() {
                       type="email"
                       required
                       placeholder="john@company.com"
-                      className="w-full"
+                      className="input-field"
                     />
                   </div>
                 </div>
@@ -181,7 +155,7 @@ export default function Contact() {
                     <input
                       type="tel"
                       placeholder="020 1234 5678"
-                      className="w-full"
+                      className="input-field"
                     />
                   </div>
                   <div>
@@ -191,7 +165,7 @@ export default function Contact() {
                     <input
                       type="text"
                       placeholder="Your Company Ltd"
-                      className="w-full"
+                      className="input-field"
                     />
                   </div>
                 </div>
@@ -200,7 +174,7 @@ export default function Contact() {
                   <label className="block text-sm font-medium text-white mb-2">
                     Service Required *
                   </label>
-                  <select required className="w-full bg-[#1a1a24] border border-[#2a2a35] text-white p-3.5 rounded-lg">
+                  <select required className="input-field">
                     <option value="">Select a service</option>
                     <option value="plant-installation">
                       Plant & Machinery Installation
@@ -226,7 +200,7 @@ export default function Contact() {
                     required
                     rows={5}
                     placeholder="Tell us about your project..."
-                    className="w-full resize-none"
+                    className="input-field resize-none"
                   />
                 </div>
 
@@ -244,7 +218,7 @@ export default function Contact() {
                 </p>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

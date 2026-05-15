@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ArrowRight, ArrowLeft, MapPin, Building2 } from "lucide-react";
 import Image from "next/image";
 
@@ -63,8 +62,6 @@ const caseStudies = [
 ];
 
 export default function CaseStudies() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeIndex, setActiveIndex] = useState(0);
 
   const next = () => setActiveIndex((prev) => (prev + 1) % caseStudies.length);
@@ -79,13 +76,7 @@ export default function CaseStudies() {
     <section id="case-studies" className="py-24 bg-[#111118]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          ref={ref}
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="gold-line w-12" />
             <span className="text-[#e8b923] text-sm font-semibold tracking-widest uppercase">
@@ -95,22 +86,18 @@ export default function CaseStudies() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
-            Case{" "}
-            <span className="text-gradient">Studies</span>
+            Case <span className="text-gradient">Studies</span>
           </h2>
 
           <p className="text-lg text-[#9ca3af] max-w-2xl mx-auto">
-            Real projects, real challenges, real results. See how we've helped
+            Real projects, real challenges, real results. See how we&apos;ve helped
             clients across the UK.
           </p>
-        </motion.div>
+        </div>
 
         {/* Featured case study */}
-        <motion.div
+        <div
           className="bg-[#1a1a24] border border-[#2a2a35] rounded-2xl overflow-hidden mb-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
           key={activeIndex}
         >
           <div className="grid lg:grid-cols-2">
@@ -166,7 +153,7 @@ export default function CaseStudies() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Navigation */}
         <div className="flex justify-between items-center">
@@ -175,10 +162,10 @@ export default function CaseStudies() {
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
+                className={`h-3 rounded-full transition-all ${
                   index === activeIndex
                     ? "bg-[#e8b923] w-8"
-                    : "bg-[#2a2a35] hover:bg-[#3a3a45]"
+                    : "bg-[#2a2a35] hover:bg-[#3a3a45] w-3"
                 }`}
               />
             ))}

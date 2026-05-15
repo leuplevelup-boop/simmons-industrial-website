@@ -1,7 +1,5 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import {
   Shield,
   Award,
@@ -52,20 +50,12 @@ const reasons = [
 ];
 
 export default function WhyChooseUs() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="why-choose-us" className="py-24 bg-[#0a0a0f]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Image */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="relative">
             <div className="relative rounded-2xl overflow-hidden">
               <Image
                 src="/images/plant-installation-2.jpg"
@@ -78,50 +68,36 @@ export default function WhyChooseUs() {
             </div>
 
             {/* Floating badge */}
-            <motion.div
-              className="absolute -bottom-6 -right-6 bg-[#e8b923] text-[#0a0a0f] p-6 rounded-xl shadow-2xl"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
+            <div className="absolute -bottom-6 -right-6 bg-[#e8b923] text-[#0a0a0f] p-6 rounded-xl shadow-2xl">
               <div className="text-4xl font-extrabold">33+</div>
               <div className="text-sm font-semibold">Years of Excellence</div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right - Content */}
-          <div ref={ref}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="gold-line w-12" />
-                <span className="text-[#e8b923] text-sm font-semibold tracking-widest uppercase">
-                  Why Simmons
-                </span>
-              </div>
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="gold-line w-12" />
+              <span className="text-[#e8b923] text-sm font-semibold tracking-widest uppercase">
+                Why Simmons
+              </span>
+            </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
-                Why Hire{" "}
-                <span className="text-gradient">Simmons?</span>
-              </h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+              Why Hire <span className="text-gradient">Simmons?</span>
+            </h2>
 
-              <p className="text-lg text-[#9ca3af] mb-10">
-                We don't just move equipment — we solve complex industrial
-                challenges. From hospitals to data centres, our expertise ensures
-                your project is completed safely, on time and on budget.
-              </p>
-            </motion.div>
+            <p className="text-lg text-[#9ca3af] mb-10">
+              We don't just move equipment — we solve complex industrial
+              challenges. From hospitals to data centres, our expertise ensures
+              your project is completed safely, on time and on budget.
+            </p>
 
             <div className="grid sm:grid-cols-2 gap-6">
-              {reasons.map((reason, index) => (
-                <motion.div
+              {reasons.map((reason) => (
+                <div
                   key={reason.title}
                   className="flex gap-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                 >
                   <div className="flex-shrink-0 w-12 h-12 bg-[#1a1a24] border border-[#2a2a35] rounded-lg flex items-center justify-center">
                     <reason.icon size={22} className="text-[#e8b923]" />
@@ -132,7 +108,7 @@ export default function WhyChooseUs() {
                       {reason.description}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

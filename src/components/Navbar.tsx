@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import Image from "next/image";
 
@@ -47,13 +46,10 @@ export default function Navbar() {
       </div>
 
       {/* Main nav */}
-      <motion.nav
+      <nav
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled ? "nav-blur shadow-lg" : "bg-[#0a0a0f]"
+          scrolled ? "bg-[#0a0a0f]/95 backdrop-blur-md shadow-lg" : "bg-[#0a0a0f]"
         }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -106,43 +102,30 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed inset-0 bg-[#0a0a0f]/98 z-40 flex flex-col items-center justify-center gap-8 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-2xl font-bold text-white hover:text-[#e8b923] transition-colors"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {link.name}
-              </motion.a>
-            ))}
-            <motion.a
-              href="tel:02086883553"
-              className="btn-primary mt-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+      {isOpen && (
+        <div className="fixed inset-0 bg-[#0a0a0f]/98 z-40 flex flex-col items-center justify-center gap-8 md:hidden">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="text-2xl font-bold text-white hover:text-[#e8b923] transition-colors"
             >
-              <Phone size={20} />
-              020 8688 3553
-            </motion.a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {link.name}
+            </a>
+          ))}
+          <a
+            href="tel:02086883553"
+            className="btn-primary mt-4"
+          >
+            <Phone size={20} />
+            020 8688 3553
+          </a>
+        </div>
+      )}
     </>
   );
 }
